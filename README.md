@@ -35,3 +35,7 @@ Pada file katalog.html di app katalog, saya menambahkan syntax for loop di bawah
 ## Implementasi deployment ke Heroku
 
 Saya menuju dashboard heroku untuk membuat app baru. Saya beri judul tugas-pbp. Lalu saya simpan api key dan nama app saya untuk disimpan pada github secret. Setelah itu, saya menjalankan kembali semua workflow yang sebelumnya gagal karena tidak ada secrets yang diperlukan.
+
+## Implementasi testing Django
+
+Saya membuat 2 test untuk memastikan aplikasi saya berjalan sesuai prosedur. Tes yang pertama akan memeriksa url, yaitu apakah bisa diakses dan mereturn kode http OK. Tes yang kedua akan memeriksa template, yaitu apakah view dalam app katalog sudah menggunakan template yang sesuai.
