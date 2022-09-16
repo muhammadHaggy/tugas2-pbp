@@ -5,7 +5,7 @@ Link heroku: https://tugas-pbp.herokuapp.com/katalog/
 
 ## Bagan Request-Response Django
 
-![alt text](readme_files/django.jpg)
+![alt text](katalog/readme_files/django.jpg)
 
 
 ## Kenapa Harus Virtual Environment
