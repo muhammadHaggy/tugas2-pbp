@@ -1,0 +1,112 @@
+[
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 1,
+        "fields": {
+            "watched": true,
+            "title": "Game of Thrones",
+            "rating": "5",
+            "release_date": "2021-11-10",
+            "review": "Series yang sangat family friendly dan cocok untuk ditonton semua kalangan"
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 2,
+        "fields": {
+            "watched": false,
+            "title": "Top Gun: Maverick",
+            "rating": "5",
+            "release_date": "2022-07-05",
+            "review": "filmnya seru"
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 3,
+        "fields": {
+            "watched": true,
+            "title": "Better Call Saul",
+            "rating": "5",
+            "release_date": "2022-09-01",
+            "review": "Banyakan plot twist yang bikin bingung"
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 4,
+        "fields": {
+            "watched": false,
+            "title": "Breaking Bad",
+            "rating": "5",
+            "release_date": "2022-09-15",
+            "review": "Best series ever"
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 5,
+        "fields": {
+            "watched": true,
+            "title": "Lord of The Rings",
+            "rating": "5",
+            "release_date": "2022-09-15",
+            "review": "Not just a movie, but a door to another dimension"
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 6,
+        "fields": {
+            "watched": false,
+            "title": "Peaky Blinders",
+            "rating": "5",
+            "release_date": "2022-09-15",
+            "review": "One of the gratest show of all time"
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 7,
+        "fields": {
+            "watched": true,
+            "title": "Rick and Morty",
+            "rating": "5",
+            "release_date": "2022-09-16",
+            "review": "Wubba Lubba Dub Dub"
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 8,
+        "fields": {
+            "watched": true,
+            "title": "The Office",
+            "rating": "5",
+            "release_date": "2022-09-16",
+            "review": "one of the best comedy series"
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 9,
+        "fields": {
+            "watched": true,
+            "title": "Vikings",
+            "rating": "5",
+            "release_date": "2022-09-16",
+            "review": "The norse remembers"
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 10,
+        "fields": {
+            "watched": true,
+            "title": "Interstellar",
+            "rating": "5",
+            "release_date": "2022-09-16",
+            "review": "Out of this world"
+        }
+    }
+]
