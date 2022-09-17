@@ -34,4 +34,10 @@
     {% endfor %}
   </table>
 
+  {% if number_of_watched >= not_watched_count %}
+    <h2>Selamat, kamu sudah banyak menonton!</h2>
+  {% else %}
+    <h2>Wah, kamu masih sedikit menonton!<h2>
+  {% endif %}
+
  {% endblock content %}
