@@ -1,41 +1,36 @@
+# My Watchlist
 
-# Katalog App
+## Link Heroku<br>
+https://tugas-pbp.herokuapp.com/mywatchlist/html/
 
-Link heroku: https://tugas-pbp.herokuapp.com/katalog/
+## Perbedaan HTML, JSON, dan XML<br>
+HTML adalah markup langugage yang biasanya berfungsi untuk menampilkan dan menformat data ataupun informasi. Sedangkan XML adalah markup language yang sering digunakan dalam hal penyimpanan data atau pertukaran data antar komputer. HTML bersifat statis, sedangkan XML bersifat dinamis. HTML menerapkan aturan yang lebih longgar daripada XML, dimana beberapa kesalahan masih ditoleransi.
 
-## Bagan Request-Response Django
+JSON adalah format pertukaran data. Json didesain supaya mudah untuk ditulis dan dibaca oleh manusia, jauh lebih mudah dari XML. Namun, XML relatif lebih aman dari JSON karena aturannya yang lebih ketat. XML punya start tags dan juga end tags, namun JSON tidak memiliki end tags.
 
-![alt text](katalog/readme_files/django.jpg)
+## Mengapa Data Delivery diperlukan?<br>
+Data delivery dibutuhkan dalam implementasi sebuah platform yang terdiri dari front-end dan back-end. Tanpa data delivery, data yang sudah disimpan di dalam database back-end tidak akan bisa ditampilkan oleh aplikasi front-end. Selain itu, data yang diinput user pada aplikasi front-end juga tidak akan bisa tersimpan dalam database back-end.
 
+## Implementasi Pembuatan App mywatchlist<br>
+Saya menjalankan perintah python manage.py startapp mywatchlist. Setelah itu, saya tambahkan app baru itu ke dalam installed apps di project folder.
 
-## Kenapa Harus Virtual Environment
+## Implementasi Routing mywatchlist<br>
+Saya menyertakan mywatchlist.urls ke dalam urls.py pada direktori project folder, yaitu pada url 'mywatchlist/'. Lalu saya mulai mengisi urls.py pada app mywatchlist, yang pertama adalah url 'html/' yang mengarah pada fungsi show_html pada view, yang kedua adalah url 'json/' yang mengarah pada fungsi show_json pada view, dan yang terakhir adalah url 'xml/' yang mengarah pada fungsi show_xml.
 
-Masing-masing project yang menggunakan Django memiliki dependency yang unik dari project lainnya.
-Oleh karena itu dibutuhkan sebuah environment khusus untuk menampung dependency yang unik tersebut.
-Jika tidak demikian, potensi munculnya konflik dependency semakin besar.
-Virtual environment yang dibawa oleh Python adalah salah satu cara implementasi environment khusus tersebut.
-Meskipun demikian, mengembangkan projek django tanpa virtual environment sangat dimungkinkan, namun dengan risikonya sendiri.
+## Implementasi Model Watchlist
+Saya membuat sebuah class model bernama MyWatchList yang berisi atribut:
+* watched, sebuah field boolean yang merepresentasikan apakah film ini sudah saya tonton.
+* title, sebuah charfield (menampung String pendek) yang merepresentasikan judul film/series.
+* rating, sebuah charfield yang dapat menampung string angka dari satu sampai lima yang merepresentasikan rating saya terhadap film/series tersebut.
+* release_date, sebuah datefield yang merepresentasikan tanggal rilis dari film/series tersebut.
+* review, sebuah textfield (menampung string panjang) yang merepresentasikan pendapat pribadi saya terhadap film/series tersebut.
 
-## Implementasi views.py
+## Postman Pictures
+HTTP request http://localhost:8000/mywatchlist/html
+![HTML test Postman](mywatchlist/readme_files/Postman_html.png)
 
-Saya mengimplementasi views.py dengan cara membuat sebuah fungsi show_katalog. 
-Fungsi ini menerima sebuah parameter request.
-Pada fungsi tersebut, saya mengambil list object dari model CatalogItem yang ada pada database.
-Lalu saya membuat variabel baru bernama context yang berisi list object tadi, nama dan NPM saya.
-Context ini akan di passing ke fungsi render yang akan menampilkan data-data tersebut menggunakan template katalog.html.
+HTTP request http://localhost:8000/mywatchlist/json
+![JSON test Postman](mywatchlist/readme_files/Postman_json.png)
 
-## Implementasi Routing
-
-Saya mengisi file urls.py pada katalog dengan path url kosong yang mengarah ke fungsi show_katalog pada views.py katalog. Lalu file urls in saya include di dalam urls.py utama pada project_django dengan url katalog/. Struktur ini akan mempermudah kita dalam maintain url kedepannya.
-
-## Implementasi pemetaan data Django ke dalam template HTML
-
-Pada file katalog.html di app katalog, saya menambahkan syntax for loop di bawah table header. Loop ini akan menampilkan masing-masing attribute dari object CatalogItem dibawah header yang sesuai dengan menggunakan html tag td dengan css text align center. 
-
-## Implementasi deployment ke Heroku
-
-Saya menuju dashboard heroku untuk membuat app baru. Saya beri judul tugas-pbp. Lalu saya simpan api key dan nama app saya untuk disimpan pada github secret. Setelah itu, saya menjalankan kembali semua workflow yang sebelumnya gagal karena tidak ada secrets yang diperlukan.
-
-## Implementasi testing Django
-
-Saya membuat 2 test untuk memastikan aplikasi saya berjalan sesuai prosedur. Tes yang pertama akan memeriksa url, yaitu apakah bisa diakses dan mereturn kode http OK. Tes yang kedua akan memeriksa template, yaitu apakah view dalam app katalog sudah menggunakan template yang sesuai.
+HTTP request http://localhost:8000/mywatchlist/xml
+![XML test Postman](mywatchlist/readme_files/Postman_xml.png)

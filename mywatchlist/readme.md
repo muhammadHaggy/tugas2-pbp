@@ -9,7 +9,7 @@ HTML adalah markup langugage yang biasanya berfungsi untuk menampilkan dan menfo
 JSON adalah format pertukaran data. Json didesain supaya mudah untuk ditulis dan dibaca oleh manusia, jauh lebih mudah dari XML. Namun, XML relatif lebih aman dari JSON karena aturannya yang lebih ketat. XML punya start tags dan juga end tags, namun JSON tidak memiliki end tags.
 
 ## Mengapa Data Delivery diperlukan?<br>
-Data delivery dibutuhkan dalam implementasi sebuah platform karena mesin-mesin perlu bertukar informasi satu sama lain agar dapat menjalankan fungsinya.
+Data delivery dibutuhkan dalam implementasi sebuah platform yang terdiri dari front-end dan back-end. Tanpa data delivery, data yang sudah disimpan di dalam database back-end tidak akan bisa ditampilkan oleh aplikasi front-end. Selain itu, data yang diinput user pada aplikasi front-end juga tidak akan bisa tersimpan dalam database back-end.
 
 ## Implementasi Pembuatan App mywatchlist<br>
 Saya menjalankan perintah python manage.py startapp mywatchlist. Setelah itu, saya tambahkan app baru itu ke dalam installed apps di project folder.
