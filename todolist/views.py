@@ -52,7 +52,7 @@ def logout_user(request):
 
 @login_required(login_url='/todolist/login/')
 def show_todolist(request):
-    data_task = Task.objects.all()
+    data_task = Task.objects.filter(user=request.user)
     context = {
         'list_task': data_task,
         'username': request.COOKIES['username'],
@@ -66,7 +66,10 @@ def add_task(request):
     if request.method == "POST":
         form = TaskForm(request.POST)
         try:
-            form.save()
+            listing = form.save(commit=False)
+            listing.user = request.user
+            listing.save()
+
             print('Berhasil nyimpan')
         except ValueError as e:
             print(e)
