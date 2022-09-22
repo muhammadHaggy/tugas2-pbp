@@ -71,6 +71,7 @@ def add_task(request):
             listing.save()
 
             print('Berhasil nyimpan')
+            return HttpResponseRedirect(reverse('todolist:show_todolist'))
         except ValueError as e:
             print(e)
     
