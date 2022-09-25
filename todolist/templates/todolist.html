@@ -12,6 +12,8 @@
     <th>Tanggal Dibuat</th>
     <th>Judul</th>
     <th>Deskripsi</th>
+    <th>Status</th>
+    <th>Actions</th>
     </tr>
     {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
     {% for task in list_task %}
@@ -19,6 +21,25 @@
         <th>{{task.date}}</th>
         <th>{{task.title}}</th>
         <th>{{task.description}}</th>
+        {% if task.is_finished %}
+            <th>Done</th>
+        {% else %}
+            <th>In Progress</th>
+        {% endif %}
+        <th>
+            <form method="post" action="{% url "todolist:toggle-task" task.id %}" >
+                {% csrf_token %}
+                <button class="btn btn-info btn-sm" type="submit" name="toggle_done">
+                    {% if task.is_finished %} Mark Not Done {% else %} Mark Done {% endif %}
+                </button>
+            </form>
+            <form method="post" action="{% url "todolist:delete-task" task.id %}" >
+                {% csrf_token %}
+                <button class="btn btn-info btn-sm" type="submit" name="toggle_done">
+                    Delete
+                </button>
+            </form>
+        </th>
     </tr>
     {% endfor %}
 </table>
