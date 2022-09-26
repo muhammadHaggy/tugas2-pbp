@@ -82,7 +82,7 @@ def add_task(request):
 @login_required(login_url='/todolist/login/')
 def delete_task(request, task_id):
     if request.method == "POST":
-        task = get_object_or_404(Task, pk=task_id)
+        task = get_object_or_404(Task, pk=task_id, user=request.user)
         task.delete()
 
         return redirect(reverse('todolist:show_todolist'))
@@ -90,7 +90,7 @@ def delete_task(request, task_id):
 @login_required(login_url='/todolist/login/')
 def toggle_task_finished(request, task_id):
     if request.method == "POST":
-        task = get_object_or_404(Task, pk=task_id)
+        task = get_object_or_404(Task, pk=task_id, user=request.user)
         task.is_finished = not task.is_finished
         task.save()
 
