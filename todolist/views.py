@@ -66,15 +66,16 @@ def add_task(request):
 
     if request.method == "POST":
         form = TaskForm(request.POST)
-        try:
-            listing = form.save(commit=False)
-            listing.user = request.user
-            listing.save()
+        if (form.is_valid()):
+            try:
+                listing = form.save(commit=False)
+                listing.user = request.user
+                listing.save()
 
-            print('Berhasil nyimpan')
-            return HttpResponseRedirect(reverse('todolist:show_todolist'))
-        except ValueError as e:
-            print(e)
+                print('Berhasil nyimpan')
+                return HttpResponseRedirect(reverse('todolist:show_todolist'))
+            except ValueError as e:
+                print(e)
     
     context = {'form': TaskForm()}
     return render(request, 'add_task.html', context)
