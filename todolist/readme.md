@@ -45,3 +45,21 @@ Saya membuat sebuah class model bernama Task yang berisi atribut:
 * review, sebuah textfield (menampung string panjang) yang merepresentasikan pendapat pribadi saya terhadap film/series tersebut.
 * description, sebuah textfield yang merepresentasikan deskripsi task.
 * is_finished, sebuah field boolean yang merepresentasikan status task.
+
+## Perbedaan Inline, Internal, dan External CSS
+Inline CSS adalah penambahan CSS attribut pada tiap html tag yang ingin dikustomisasi. Dengan Inline CSS, kita dapat secara cepat memasukkan styling ke dalam html page, hal ini sangat berguna ketika kita ingin mengetes dan melihat perubahan dengan cepat. Namun, menambahkan attribut CSS ke tiap html tag memakan waktu dan dapat membuat file html kita sulit untuk dibaca.
+
+Internal CSS adalah penambahan CSS dalam tag style di dalam bagian head html. Dengan internal CSS, kita bisa menggunakan fitur class dan ID selector yang tidak tersedia pada inline CSS. Namun, untuk website yang punya banyak file html, menambahkan internal css ke tiap file menghabiskan banyak waktu dan melanggar prinsip "Do not repeat yourself".
+
+External CSS adalah penambahan CSS dengan cara menghubungkan html file di website kita dengan suatu file .css external. Metode ini sangat efisien untuk website-webisite besar karena dengan mengubah satu file saja, kita bisa mengubah styling pada banyak html yang terhubung. Namun, ada resiko halaman web tidak akan ditampilkan dengan baik sampai file CSS external dimuat.
+
+## Tag HTML 5
+
+
+## Implementasi Kustomisasi Login, Register, dan Create-task
+Untuk semua halaman dalam app todolist kita menerapkan sebuah navbar yang disebelah kirinya bertuliskan "Signed in as username" jika sudah login dan "Not logged in" jika belum login. Di tengah-tengah navbar bertuliskan nama app yaitu todolist memanfaatkan tag brand. Di sebelah kanan navbar terdapat action button yang berbeda-beda tiap halaman, pada halaman login action buttonnya menuju ke halaman register, pada halaman register action buttonnya menuju ke halaman login, sedangkan pada halaman index todolist action buttonnya menuju ke halaman create-task dan logout user.
+
+Pada semua halaman kita letakkan semua widget dalam container agar lebih rapi. Pada halaman login, saya memasukkan form dalam sebuah flex yang memposisikan item di tengah. Lalu saya memasukkan control group dan control class pada tiap input form untuk memanfaatkan default layout dari bootstrap. Pada halaman register, saya memanfaatkan layout form default dari bootstrap dengan cara mengiterasi tiap field pada form dan mengintegrasikannya dengan control class dari bootstrap. Saya juga melakukan hal yang sama pada halaman create-task.
+
+## Implementasi halaman utama todolist
+Saya meletakkan semua card task dalam suatu container. Setiap card berisi header yang merepresentasikan status dari tugas. Lalu body dari card diisi dengan judul task dan deskripsi dari task dengan tulisan yang lebih kecil. Body card juga diisi dua button action di sebelah kanan bawah yang masing-masing berfungsi untuk merubah status dari task dan menghapus task. Setiap card berisi footer yang merepresentasikan tanggal pembuatan dari tiap task.

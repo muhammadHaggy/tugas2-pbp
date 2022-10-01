@@ -27,38 +27,46 @@
 </nav>
 
 <div class="container">
+    <div class="row justify-content-around">
     {% for task in list_task %}
-    <div class="card mb-5">
-        <div class="card-header">
-            {% if task.is_finished %}
-                <th>Done</th>
-            {% else %}
-                <th>In Progress</th>
-            {% endif %}
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">{{task.title}}</h5>
-            <p class="card-text">{{task.description}}</p>
-            <div class="btn-group float-end" role="group">
-                <form method="post" action="{% url "todolist:toggle-task" task.id %}" >
-                    {% csrf_token %}
-                    <button class="btn btn-secondary btn-sm me-3" type="submit" name="toggle_done">
-                        {% if task.is_finished %} Mark Not Done {% else %} Mark Done {% endif %}
-                    </button>
-                </form>
-                <form method="post" action="{% url "todolist:delete-task" task.id %}" >
-                    {% csrf_token %}
-                    <button class="btn btn-danger btn-sm" type="submit" name="toggle_done">
-                        Delete
-                    </button>
-                </form>
+            <div class="card mb-5 col-lg-5">
+                <div class="card-header">
+                    {% if task.is_finished %}
+                        <th>Done</th>
+                    {% else %}
+                        <th>In Progress</th>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{task.title}}</h5>
+                    <p class="card-text">{{task.description}}</p>
+                    <div class="btn-group float-end" role="group">
+                        <form method="post" action="{% url "todolist:toggle-task" task.id %}" >
+                            {% csrf_token %}
+                            <button class="btn btn-secondary btn-sm me-3" type="submit" name="toggle_done">
+                                {% if task.is_finished %} Mark Not Done {% else %} Mark Done {% endif %}
+                            </button>
+                        </form>
+                        <form method="post" action="{% url "todolist:delete-task" task.id %}" >
+                            {% csrf_token %}
+                            <button class="btn btn-danger btn-sm" type="submit" name="toggle_done">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    {{task.date}}
+                </div>
             </div>
-        </div>
-        <div class="card-footer text-muted">
-            {{task.date}}
-        </div>
-    </div>
+        {% if forloop.counter|divisibleby:2 %}
+            <div class="w-100"></div>
+        {% elif forloop.last%}
+            <div class="col-md-5"></div> 
+        {% endif %}
     {% endfor %}
+    </div>
+
 
 
 {% comment %} <table>
