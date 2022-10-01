@@ -63,3 +63,6 @@ Pada semua halaman kita letakkan semua widget dalam container agar lebih rapi. P
 
 ## Implementasi halaman utama todolist
 Saya meletakkan semua card task dalam suatu container. Setiap card berisi header yang merepresentasikan status dari tugas. Lalu body dari card diisi dengan judul task dan deskripsi dari task dengan tulisan yang lebih kecil. Body card juga diisi dua button action di sebelah kanan bawah yang masing-masing berfungsi untuk merubah status dari task dan menghapus task. Setiap card berisi footer yang merepresentasikan tanggal pembuatan dari tiap task.
+
+## Implementasi responsiveness
+Untuk implementasi responsiveness saya menggunakan sistem grid dari Bootstrap. Saya gunakan row dari bootstrap di luar iterasi tiap task. Lalu saya tambahkan card dengan col-lg-5 yang berarti pada checkpoint large, ubah ukuran kolum menjadi 5/12 dari lebar container. Hal ini hanya akan berlaku pada breakpoint large keatas. Yang berarti tampilannya pada breakpoint large kebawah hanyalah satu card per row, sedangkan pada breakpoint large keatas dua card per row.
