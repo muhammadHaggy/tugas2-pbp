@@ -68,3 +68,6 @@ Saya meletakkan semua card task dalam suatu container. Setiap card berisi header
 Untuk implementasi responsiveness saya menggunakan sistem grid dari Bootstrap. Saya gunakan row dari bootstrap di luar iterasi tiap task. Lalu saya tambahkan card dengan col-lg-5 yang berarti pada checkpoint large, ubah ukuran kolum menjadi 5/12 dari lebar container. Hal ini hanya akan berlaku pada breakpoint large keatas. Yang berarti tampilannya pada breakpoint large kebawah hanyalah satu card per row, sedangkan pada breakpoint large keatas dua card per row.
 
 Kita juga menerapkan beberapa checkpoint pada form login yaitu col-sm-8 col-md-6 col-lg-3. Pada checkpoint small, lebar form adalah 8/12, pada checkpoint medium 6/12, dan pada checkpoint large 3/12. Hal ini mencegah ukuran form yang tidak proporsional. Hal yang sama juga diterapkan pada halaman register dan create-task.
+
+## Implementasi hover animation
+Implementasi dengan internal CSS menggunakan selector class card. Animasi yang diterapkan adalah memperbesar ukuran kartu 5%. 
