@@ -55,6 +55,36 @@ External CSS adalah penambahan CSS dengan cara menghubungkan html file di websit
 
 ## Tag HTML 5
 
+### nav
+Mendefinisikan bagian navigasi dari sebuah website. Nav biasanya berisi link ke bagian lain dari website.
+
+### article
+Mendefinisikan bagian dari web yang membentuk bagian independen, seperti artikel, postingan blog, dll.
+
+### dialog
+Tag dialog memunculkan dialog box kepada user. Cocok untuk penggunaan seperti peringatan yang bisa diabaikan.
+
+### embed
+Tag embed dapat digunakan untuk memasukkan aplikasi eksternal seperti konten audio dan video ke dalam web kita.
+
+
+
+
+## Tipe-Tipe CSS Selector
+### Universal Selector
+Memilih semua elemen html. Syntax: *
+
+### Type Selector
+Memilih semua elemen node namenya sesuai. Contoh: type selector p akan memilih semua elemen <p>
+
+### Class Selector
+Memilih semua elemen yang punya attribut class yang sesuai. Contoh: .card akan memilih semua elemen yang punya class card
+
+### ID Selector
+Memilih sebuah elemen berdasarkan nilai attribut idnya. Misalnya: #user akan memilih elemen yang punya id "user".
+
+### Attribut selector
+Memilih semua elemen yang punya attribut. Contoh: [href] akan memilih semua elemen yang punya attribut href. 
 
 ## Implementasi Kustomisasi Login, Register, dan Create-task
 Untuk semua halaman dalam app todolist kita menerapkan sebuah navbar yang disebelah kirinya bertuliskan "Signed in as username" jika sudah login dan "Not logged in" jika belum login. Di tengah-tengah navbar bertuliskan nama app yaitu todolist memanfaatkan tag brand. Di sebelah kanan navbar terdapat action button yang berbeda-beda tiap halaman, pada halaman login action buttonnya menuju ke halaman register, pada halaman register action buttonnya menuju ke halaman login, sedangkan pada halaman index todolist action buttonnya menuju ke halaman create-task dan logout user.
