@@ -37,7 +37,6 @@ def login_user(request):
                     reverse("todolist:show_todolist"))  # membuat response
                 # membuat cookie last_login dan menambahkannya ke dalam response
                 response.set_cookie('last_login', str(datetime.datetime.now()))
-                response.set_cookie('username', username)
                 return response
         else:
             messages.info(request, 'Username atau Password salah!')
@@ -56,7 +55,6 @@ def show_todolist(request):
     data_task = Task.objects.filter(user=request.user).order_by('id')
     context = {
         'list_task': data_task,
-        'username': request.COOKIES['username'],
         'last_login': request.COOKIES['last_login'],
     }
     return render(request, "todolist.html", context)
