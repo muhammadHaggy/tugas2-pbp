@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core import serializers
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
@@ -58,6 +58,11 @@ def show_todolist(request):
         'last_login': request.COOKIES['last_login'],
     }
     return render(request, "todolist.html", context)
+
+@login_required(login_url='/todolist/login/')
+def show_todolist_json(request):
+    data_task = Task.objects.filter(user=request.user).order_by('id')
+    return HttpResponse(serializers.serialize("json", data_task), content_type="application/json")
 
 @login_required(login_url='/todolist/login/')
 def add_task(request):

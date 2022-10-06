@@ -2,23 +2,104 @@
 
 {% block meta %}
 <title>Todolist</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <style>
     .card:hover {
         transform: scale(1.05);
-      }
+    }
 </style>
 
 {% endblock meta %}
 
 {% block content %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.getJSON("{% url 'todolist:show_todolist_json' %}", function (json) {
+            // JSON result in `data` variable
+            var cards = [];
+            $.each(json, function (index, val) {
+                var fields = val.fields
+                var div1 = document.createElement("div");
+                div1.classList.add("card");
+                div1.classList.add("mb-5");
+                div1.classList.add("col-lg-5");
+                var card_header = document.createElement("div");
+                card_header.classList.add("card-header")
+                if (fields.is_finished) {
+                    card_header.innerHTML = "Done";
+                } else {
+                    card_header.innerHTML = "In Progress";
+                }
+                div1.appendChild(card_header);
+
+                var card_body = document.createElement("div");
+                card_body.classList.add("card-body");
+                var card_title = document.createElement("h5");
+                card_title.classList.add("card-title");
+                card_title.innerHTML = fields.title
+                card_body.appendChild(card_title);
+
+                var card_description = document.createElement("p");
+                card_description.classList.add("card-text");
+                card_description.innerHTML = fields.description;
+                card_body.appendChild(card_description)
+
+                var button_group = document.createElement("div");
+                button_group.classList.add("btn-group");
+                button_group.classList.add("float-end");
+                var buttons_code_block = '<form method="post" action="todolist/toggle-task/"' + fields.pk +
+                    '<button class="btn btn-secondary btn-sm me-3" type="submit" name="toggle_done" id="toggle_button" >'
+                // ' {% if task.is_finished %} Mark Not Done {% else %} Mark Done {% endif %}' +
+                if (fields.is_finished) {
+                    buttons_code_block += "Mark Not Done";
+                } else {
+                    buttons_code_block += "Mark Done";
+                }
+                buttons_code_block += '</button>' +
+                                        '</form>' +
+                                        '<form method="post" action="todolist/toggle-task/"' + fields.pk +
+                                        '<button class="btn btn-danger btn-sm" type="submit" name="delete">' +
+                                        'Delete' +
+                                        '</button>' +
+                                        '</form>'
+
+                button_group.innerHTML = buttons_code_block;
+                card_body.appendChild(button_group)
+                div1.append(card_body);
+
+                var toggle_button = button_group.firstChild.firstChild;
+                if (fields.is_finished) {
+                    toggle_button.innerHTML = "Mark Not Done";
+                } else {
+                    toggle_button.innerHTML = "Mark Done";
+                }
+
+                var card_footer = document.createElement("div");
+                card_footer.classList.add("card-footer");
+                card_footer.classList.add("text-muted");
+                card_footer.innerHTML = fields.date;
+                div1.append(card_footer);
+
+                cards.push(div1.outerHTML);
+            });
+
+            var card_container = document.getElementById("card-container");
+            card_container.innerHTML = cards.join("");
+        });
+    });
+</script>
+
 
 <nav class="navbar navbar-light px-4 mb-3" style="background-color: #e3f2fd;">
     <span class="navbar-text mb-0 h5">Signed in as {{user.username}}</span>
     <span class="navbar-brand mb-0 h1">Todolist</span>
     <div class="btn-group" role="group">
-        <form method="post" action="{% url "todolist:add_task" %}" >
+        <form method="post" action="{% url 'todolist:add_task' %}">
             {% csrf_token %}
             <button class="btn btn-primary me-3 navbar-btn" type="submit" name="create-task">
                 Add Task
@@ -32,84 +113,47 @@
 </nav>
 
 <div class="container">
-    <div class="row justify-content-around">
-    {% for task in list_task %}
-            <div class="card mb-5 col-lg-5">
-                <div class="card-header">
-                    {% if task.is_finished %}
-                        <th>Done</th>
-                    {% else %}
-                        <th>In Progress</th>
-                    {% endif %}
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{task.title}}</h5>
-                    <p class="card-text">{{task.description}}</p>
-                    <div class="btn-group float-end" role="group">
-                        <form method="post" action="{% url "todolist:toggle-task" task.id %}" >
-                            {% csrf_token %}
-                            <button class="btn btn-secondary btn-sm me-3" type="submit" name="toggle_done">
-                                {% if task.is_finished %} Mark Not Done {% else %} Mark Done {% endif %}
-                            </button>
-                        </form>
-                        <form method="post" action="{% url "todolist:delete-task" task.id %}" >
-                            {% csrf_token %}
-                            <button class="btn btn-danger btn-sm" type="submit" name="toggle_done">
-                                Delete
-                            </button>
-                        </form>
-                    </div>
-                </div>
-                <div class="card-footer text-muted">
-                    {{task.date}}
+    <div class="row justify-content-around" id="card-container">
+        {% comment %}
+        <!-- {% for task in list_task %} -->
+        <!-- <div class="card mb-5 col-lg-5">
+            <div class="card-header" id="is_finished">
+                {% if task.is_finished %}
+                <th>Done</th>
+                {% else %}
+                <th>In Progress</th>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{task.title}}</h5>
+                <p class="card-text">{{task.description}}</p>
+                <div class="btn-group float-end" role="group">
+                    <form method="post" action="{% url " todolist:toggle-task" task.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-secondary btn-sm me-3" type="submit" name="toggle_done">
+                            {% if task.is_finished %} Mark Not Done {% else %} Mark Done {% endif %}
+                        </button>
+                    </form>
+                    <form method="post" action="{% url " todolist:delete-task" task.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-danger btn-sm" type="submit" name="toggle_done">
+                            Delete
+                        </button>
+                    </form>
                 </div>
             </div>
-        {% if forloop.counter|divisibleby:2 %}
-            <div class="w-100"></div>
+            <div class="card-footer text-muted">
+                {{task.date}}
+            </div>
+        </div> -->
+        <!-- {% if forloop.counter|divisibleby:2 %}
+        <div class="w-100"></div>
         {% elif forloop.last%}
-            <div class="col-lg-5"></div> 
-        {% endif %}
-    {% endfor %}
+        <div class="col-lg-5"></div>
+        {% endif %} -->
+        <!-- {% endfor %} --> {% endcomment %}
     </div>
 
-
-
-{% comment %} <table>
-    <tr>
-    <th>Tanggal Dibuat</th>
-    <th>Judul</th>
-    <th>Deskripsi</th>
-    <th>Status</th>
-    <th>Actions</th>
-    </tr>
-    Tambahkan data di bawah baris ini
-    {% for task in list_task %}
-    <tr>
-        <th>{{task.date}}</th>
-        <th>{{task.title}}</th>
-        <th>{{task.description}}</th>
-        {% if task.is_finished %}
-            <th>Done</th>
-        {% else %}
-            <th>In Progress</th>
-        {% endif %}
-        <th>
-            <form method="post" action="{% url "todolist:toggle-task" task.id %}" >
-                {% csrf_token %}
-                <button class="btn btn-info btn-sm" type="submit" name="toggle_done">
-                    {% if task.is_finished %} Mark Not Done {% else %} Mark Done {% endif %}
-                </button>
-            </form>
-            <form method="post" action="{% url "todolist:delete-task" task.id %}" >
-                {% csrf_token %}
-                <button class="btn btn-info btn-sm" type="submit" name="toggle_done">
-                    Delete
-                </button>
-            </form>
-        </th>
-    </tr>
-    {% endfor %}
-</table> {% endcomment %}
     <h5>Sesi terakhir login: {{ last_login }}</h5>
 </div>
 
