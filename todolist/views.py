@@ -1,3 +1,4 @@
+from turtle import title
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core import serializers
@@ -82,6 +83,17 @@ def add_task(request):
     
     context = {'form': TaskForm()}
     return render(request, 'add_task.html', context)
+
+@login_required(login_url='/todolist/login/')
+def add_task_ajax(request):
+
+    if request.method == "POST":
+        title = request.POST['title']
+        description = request.POST['description']
+        barang_baru = Task.objects.create(user=request.user, title=title, description=description)
+        return JsonResponse({'error': False, 'msg':'Successful'})
+    
+    return redirect('todolist:show_todolist')
 
 @login_required(login_url='/todolist/login/')
 def delete_task(request, task_id):
