@@ -71,6 +71,7 @@
             }
             buttons_code_block += '</button>' +
                 '</form>' +
+                '{% csrf_token %}'+
                 '<form method="post" action="todolist/toggle-task/"' + fields.pk +
                 '<button class="btn btn-danger btn-sm" type="submit" name="delete">' +
                 'Delete' +
