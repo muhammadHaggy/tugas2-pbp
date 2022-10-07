@@ -61,24 +61,48 @@
             var button_group = document.createElement("div");
             button_group.classList.add("btn-group");
             button_group.classList.add("float-end");
-            var buttons_code_block = '<form method="post" action="todolist/toggle-task/"' + fields.pk +
-                '<button class="btn btn-secondary btn-sm me-3" type="submit" name="toggle_done" id="toggle_button" >'
+            // var buttons_code_block = 
+            //     '<button class="btn btn-secondary btn-sm me-3 toggle-button"' + 
+            //     ' type="button" name="toggle_done" >';
             // ' {% if task.is_finished %} Mark Not Done {% else %} Mark Done {% endif %}' +
-            if (fields.is_finished) {
-                buttons_code_block += "Mark Not Done";
-            } else {
-                buttons_code_block += "Mark Done";
-            }
-            buttons_code_block += '</button>' +
-                '</form>' +
-                '{% csrf_token %}'+
-                '<form method="post" action="todolist/toggle-task/"' + fields.pk +
-                '<button class="btn btn-danger btn-sm" type="submit" name="delete">' +
-                'Delete' +
-                '</button>' +
-                '</form>'
+            // if (fields.is_finished) {
+            //     buttons_code_block += "Mark Not Done";
+            // } else {
+            //     buttons_code_block += "Mark Done";
+            // }
+            // buttons_code_block += '</button>' +
+            //     '<button class="btn btn-danger btn-sm toggle-button" ' +
+            //     ' type="button" name="delete">' +
+            //     'Delete' +
+            //     '</button>';
 
-            button_group.innerHTML = buttons_code_block;
+            // button_group.innerHTML = buttons_code_block;
+
+            var toggle_button = document.createElement("button");
+            toggle_button.classList.add("btn");
+            toggle_button.classList.add("btn-secondary");
+            toggle_button.classList.add("btn-sm");
+            toggle_button.classList.add("me-3");
+            if (fields.is_finished) {
+                toggle_button.innerHTML = "Mark Not Done";
+            } else {
+                toggle_button.innerHTML += "Mark Done";
+            }
+            toggle_button.setAttribute('onclick', `toggleCard(${val.pk})`);
+            button_group.append(toggle_button);
+
+
+            var delete_button = document.createElement("button");
+            delete_button.classList.add("btn");
+            delete_button.classList.add("btn-danger");
+            delete_button.classList.add("btn-sm");
+            delete_button.innerHTML = "Delete";
+            delete_button.setAttribute('onclick', `deleteCard(${val.pk})`);
+
+            button_group.appendChild(delete_button);
+
+
+
             card_body.appendChild(button_group)
             div1.append(card_body);
 
@@ -100,6 +124,28 @@
 
         var card_container = document.getElementById("card-container");
         card_container.innerHTML = cards.join("");
+    }
+
+    function updateCards() {
+        $.getJSON("{% url 'todolist:show_todolist_json' %}", displayCards);
+    }
+
+    function toggleCard(pk) {
+        $.ajax({
+            url:`toggle-task/${pk}`,
+            type: 'post',
+            data: {},
+            success: updateCards,
+        });
+    }
+
+    function deleteCard(pk) {
+        $.ajax({
+            url:`delete-task/${pk}/`,
+            type: 'post',
+            data: {},
+            success: updateCards,
+        });
     }
 
     $(document).ready(function () {
@@ -173,6 +219,7 @@
     </div>
 </div>
 
+<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
 
 
 <div class="container">

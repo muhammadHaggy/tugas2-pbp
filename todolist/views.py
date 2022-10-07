@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
-
+from django.views.decorators.csrf import csrf_exempt
 from todolist.forms import TaskForm
 from .models import Task
 # Create your views here.
@@ -95,21 +95,23 @@ def add_task_ajax(request):
     return redirect('todolist:show_todolist')
 
 @login_required(login_url='/todolist/login/')
+@csrf_exempt
 def delete_task(request, task_id):
     if request.method == "POST":
         task = get_object_or_404(Task, pk=task_id, user=request.user)
         task.delete()
 
-        return redirect(reverse('todolist:show_todolist'))
+        return JsonResponse({'error':False})
 
 @login_required(login_url='/todolist/login/')
+@csrf_exempt
 def toggle_task_finished(request, task_id):
     if request.method == "POST":
         task = get_object_or_404(Task, pk=task_id, user=request.user)
         task.is_finished = not task.is_finished
         task.save()
 
-        return redirect(reverse('todolist:show_todolist'))
+        return JsonResponse({'error':False})
 
 
 
